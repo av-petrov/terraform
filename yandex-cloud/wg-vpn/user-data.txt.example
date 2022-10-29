@@ -1,0 +1,19 @@
+#cloud-config
+users:
+  - name: user
+    groups: adm,sshd
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh-authorized-keys:
+      - ssh-rsa ...
+  - name: console
+    groups: adm
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    lock_passwd: false
+    passwd: $6$...
+runcmd:
+  - sed -i -e '/^#Port/s/^.*$/Port 7777/' /etc/ssh/sshd_config
+  - sed -i -e '/^#PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
+  - sed -i -e '$aAllowUsers user' /etc/ssh/sshd_config
+  - sudo systemctl restart sshd

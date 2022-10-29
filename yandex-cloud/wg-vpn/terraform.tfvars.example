@@ -1,0 +1,7 @@
+folder_name = "default"
+subnet_name = "default-ru-central1-a"
+instance_name = "wg"
+image_id = "XXX"
+dns_zone_id = "XXX"
+dns_instance_name = "wg.example.com."
+zone_name = "ru-central1-a"
